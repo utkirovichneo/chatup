@@ -9,8 +9,8 @@ import java.util.StringJoiner;
 
 public class Message extends BaseModel{
     private String body;
-    private String toUserID;
-    private String userID;
+    private String firstID;
+    private String secondID;
     private StatusMessage status;
     private String date;
 
@@ -19,8 +19,8 @@ public class Message extends BaseModel{
 
     public Message(String body, String toUserID, String userID) {
         this.body = body;
-        this.toUserID = toUserID;
-        this.userID = userID;
+        this.firstID = toUserID;
+        this.secondID = userID;
         this.status = StatusMessage.was_not_read;
             LocalTime localTime = LocalTime.now();
         this.date  = "%s:%s".formatted(localTime.getHour(), localTime.getMinute());
@@ -28,11 +28,11 @@ public class Message extends BaseModel{
     public String getBody() {
         return body;
     }
-    public String getToUserID(){
-        return toUserID;
+    public String getFirstID(){
+        return firstID;
     }
-    public String getUserID() {
-        return userID;
+    public String getSecondID() {
+        return secondID;
     }
     public StatusMessage getStatus() {
         return status;

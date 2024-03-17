@@ -1,28 +1,31 @@
-package uz.pdp.back.services.userservice;
+# UserService Model
 
-import uz.pdp.back.models.user.User;
+Bu class User modeli ustida amallar bajarish, saqlash uchun ishlatiladi
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+## Xususiyatlar
 
-public class UserServiceimp implements UserService{
+**userList**: *Userlarning ro'yxatini o'z ichiga oladi.*
 
-    private List<User> userList;
+## Metodlar
 
-    public UserServiceimp() {
-        this.userList = new ArrayList<>();
-    }
-
-    @Override
-    public void create(User user) {
+1. Konstruktor.
+```java
+public UserServiceimp() {
+    this.userList = new ArrayList<>();
+}
+   ```
+2. Userlarni yaratuvchi metod
+```java
+public void create(User user) {
         if (user == null) {
             return;
         }
             userList.add(user);
     }
-
-    public User edit(String id, String newNickName) {
+```
+3. Userning nick nomini o'zgartiruvchi metod
+```java
+public User edit(String id, String newNickName) {
         for (User user : userList) {
             if (user.getId().equals(id)) {
                 user.setNickname(newNickName);
@@ -31,9 +34,10 @@ public class UserServiceimp implements UserService{
         }
         return null;
     }
-
-    @Override
-    public void delete(String id) {
+```
+4. Userni userlar ro'yxatidan o'chiruvchi metod
+```java
+public void delete(String id) {
         for (User user : userList) {
             if (user.getId().equals(id)) {
                 userList.remove(user);
@@ -41,9 +45,10 @@ public class UserServiceimp implements UserService{
             }
         }
     }
-
-    @Override
-    public User get(String id) {
+```
+5. Userni userlar ro'yxatidan ID raqami bo'yicha olish metodi
+```java
+public User get(String id) {
         for (User user : userList) {
             if (user.getId().equals(id)) {
                 return user;
@@ -51,9 +56,10 @@ public class UserServiceimp implements UserService{
         }
         return null;
     }
-
-    @Override
-    public String searchUser(String phoneNumber) {
+```
+6. Telefon raqami bo'yicha userni qidirib ID raqamini qaytaruvchi metod
+```java
+public String searchUser(String phoneNumber) {
         String id = null;
         for (User user : userList) {
             if (user.getNumber().equals(phoneNumber)) {
@@ -62,9 +68,10 @@ public class UserServiceimp implements UserService{
         }
         return id;
     }
-
-    @Override
-    public String searchWithNick(String nick) {
+```
+7. Userni nick nomi bo'yicha qidiruvchi metod
+```java
+public String searchWithNick(String nick) {
         for (User user : userList) {
             if (Objects.equals(user.getNickname(), nick)) {
              return user.getId();
@@ -72,14 +79,10 @@ public class UserServiceimp implements UserService{
         }
         return null;
     }
-
-    @Override
-    public List<User> getList() {
-        return userList;
-    }
-
-    @Override
-    public User login(String number, String password) {
+```
+8. Userlarnining login qilish metodi
+```java
+public User login(String number, String password) {
         for (User user : userList) {
             if (user.getNumber().equals(number)&&
                     user.getPassword().equals(password)) {
@@ -88,4 +91,8 @@ public class UserServiceimp implements UserService{
         }
         return null;
     }
-}
+```
+
+## Qo'llanish
+User modeli yordamida userlarni yaratish va ularni Listga saqlash, o'zgartirish, qidirish, qaytarish va o'chirishni
+bajaruvchi class

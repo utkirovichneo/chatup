@@ -1,23 +1,28 @@
-package uz.pdp.back.services.massageservice;
+# UserService Model
 
-import uz.pdp.back.enums.StatusMessage;
-import uz.pdp.back.models.message.Message;
+Bu class Userlar tomonidan yozilgan messagelarni saqlash, jo'natish vazigalarini bajaruvchi class
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+## Xususiyatlar
 
-public class MessageServiceimp implements MessageService {
-    private List<Message> messages;
-    public MessageServiceimp() {
+**messages**: *Userlarning cabarlarini ro'yxatini o'z ichiga oladi.*
+
+## Metodlar
+
+1. Konstruktor.
+```java
+public MessageServiceimp() {
         this.messages = new ArrayList<>();
     }
-    @Override
-    public void sendMessage(Message message) {
+   ```
+2. Xabar jo'natish metodi
+```java
+public void sendMessage(Message message) {
         messages.add(message);
     }
-    @Override
-    public List<Message> ourCorrespondence(String contactID, String userID) {
+```
+3. Xabar jo'natuvchi va qabul qiluvchining o'zaro suxbatini ro'yxatini qaytaruvchi class
+```java
+public List<Message> ourCorrespondence(String contactID, String userID) {
         List<Message> messageList = new ArrayList<>();
         for (Message message : messages) {
             if (Objects.equals(message.getFirstID(),contactID)&&
@@ -29,8 +34,10 @@ public class MessageServiceimp implements MessageService {
         }
         return messageList;
     }
-    @Override
-    public List<String> correspondenceID(String userID) {
+```
+4. User bilan o'zaro mulaqotda bo'lgan boshqa userlarning ID raqamlarining Listlarini qaytaruvchi metod
+```java
+public List<String> correspondenceID(String userID) {
         var cpdID = new ArrayList<String>();
         for (Message message : messages) {
             if(Objects.equals(message.getSecondID(), userID)){
@@ -44,9 +51,10 @@ public class MessageServiceimp implements MessageService {
         }
         return cpdID;
     }
-
-    @Override
-    public List<String> newMessageUserID(String userID) {
+```
+5. User tomonidan o'qilmagan xabarlarni List ko'rinishida qaytaruvchi metod
+```java
+public List<String> newMessageUserID(String userID) {
         var newMUID = new ArrayList<String>();
         List<String> cpdIDs = correspondenceID(userID);
         for (String cpdID : cpdIDs) {
@@ -57,4 +65,6 @@ public class MessageServiceimp implements MessageService {
         }
         return newMUID;
     }
-}
+```
+## Qo'llanish
+Userlar tomonidan Message jo'natuvchi, eski messagelarni saqlovchi va id lar bo'yicha xabarlarni qaytaruvchi class
