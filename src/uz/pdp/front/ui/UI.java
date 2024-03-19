@@ -34,7 +34,6 @@ public class UI {
     private static final MessageService messageService = new MessageServiceimp();
     private static final ContactService contactService = new ContactServiceimp();
     private static Contact contact = new Contact();
-
     public static void main(String[] args){
                 Handler handler = new TelegramAlarmHandler();
                     logger.addHandler(handler);
@@ -98,7 +97,6 @@ public class UI {
         String password = enterPassword();
         createAccount(phoneNumber, fullname, nickName, password);
     }
-
     private static void createAccount(String phoneNumber, String fullname, String nickName, String password) {
         String isThere = userService.searchUser(phoneNumber);
         try{
@@ -118,7 +116,6 @@ public class UI {
             }
         }
     }
-
     private static String enterPassword() {
         String password = enterStr("Parol kiriting: ");
         while (!passwordIsValid(password)) {
@@ -128,7 +125,6 @@ public class UI {
         }
         return password;
     }
-
     private static String enterPhoneNumber() {
         String phoneNumber = enterStr("Telefon raqamingizni kiriting (Misol uchun +998123456789): ");
         while (!numberIsValid(phoneNumber)) {
@@ -137,7 +133,6 @@ public class UI {
         }
         return phoneNumber;
     }
-
     private static String enterNickName() {
         String nickName = enterStr("Nick name kiriting: ");
         while (!nicknameIsValid(nickName)) {
@@ -146,7 +141,6 @@ public class UI {
         }
         return nickName;
     }
-
     private static String enterFullname() {
         String fullname = enterStr("Ismingizni kiriting: ");
         while (!fullnameIsValid(fullname)) {
@@ -155,37 +149,31 @@ public class UI {
         }
         return fullname;
     }
-
     private static boolean fullnameIsValid(String fullname){
         Pattern pattern = Pattern.compile("^[A-Za-z\\p{Punct}]{5,}$");
         Matcher matcher = pattern.matcher(fullname);
         return matcher.matches();
     }
-
     private static boolean nicknameIsValid(String nickname){
         Pattern pattern = Pattern.compile("^[A-Za-z0-9_-]{3,15}$");
         Matcher matcher = pattern.matcher(nickname);
         return matcher.matches();
     }
-
     private static boolean numberIsValid(String phoneNumber){
         Pattern pattern = Pattern.compile("^(\\+998)((55|77|88|9[013479])(\\d{7}))$");
         Matcher matcher = pattern.matcher(phoneNumber);
         return matcher.matches();
     }
-
     private static boolean passwordIsValid(String password){
         Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#&_\\-<>])(?=\\S+$).{8,30}$");
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
     }
-
     private static User signUp(){
         String number = enterStr("Raqamingizni kiriting: ");
         String password = enterStr("Parolni kiriting: ");
         return userService.login(number, password);
     }
-
     private static void createContact(){
         String contactName = enterStr("Ismini kiriting: ");
         String contactNumber = enterStr("Raqamini kiriting: ");
@@ -253,7 +241,6 @@ public class UI {
             System.out.println("========================\n");
         }
     }
-
     private static void conversation(String id) {
         List<Message> messageList = messageService.ourCorrespondence(id, user.getId());
         if (!messageList.isEmpty()) {
@@ -268,7 +255,6 @@ public class UI {
             }
         }
     }
-
     private static void chooseConversation(List<String> cpdIDs) {
         List<String> contactsID = contactService.contactsID(user.getId());
         List<Contact> contactByID = contactService.getContactByID(user.getId());
@@ -290,17 +276,14 @@ public class UI {
         System.out.println("\t\t\t\t" + message1.getLocaleDate());
         System.out.println("\t\t\t\t" + (Objects.equals(message1.getStatus(), StatusMessage.was_read) ? "✅" : "🕛"));
     }
-
     private static void correspondence() {
         List<String> cpdIDs = messageService.correspondenceID(user.getId());
         chooseConversation(cpdIDs);
     }
-
     private static void newMessage() {
         List<String> cpdIDs = messageService.newMessageUserID(user.getId());
         chooseConversation(cpdIDs);
     }
-
     private static void chooseSendSMSYesOrNo(String id) {
         int choose = enterInt("Yangi xabar yozasizmi:\n1. Ha\t\t2.Yo'q\n");
         if(choose == 1){
