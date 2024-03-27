@@ -19,3 +19,8 @@
 /out/production/Telegram/uz/pdp/front/utils/UtilMain.class
 /.idea/vcs.xml
 /.idea/.gitignore
+/out/production/Telegram/logging.properties
+/out/production/Telegram/uz/pdp/logging/Secrets.class
+/out/production/Telegram/uz/pdp/logging/TelegramAlarmFilter.class
+/out/production/Telegram/uz/pdp/logging/TelegramAlarmFormatter.class
+/out/production/Telegram/uz/pdp/logging/TelegramAlarmHandler.class
